@@ -15,11 +15,10 @@ def home():
 @app.route('/preview', methods=["GET"])
 def preview():
     top10rows = df.head(1)
-    result = top10rows.to_json(orient="records")
+    result= top10rows.to_json(orient="records")
     return result
 
-    @app.route('/services/<value>', methods=['GET'])
-    
+@app.route('/services/<value>', methods=['GET'])   
 def services(value):
     print('value: ', value)
     filtered = df[df['svc_code'] == value]

@@ -1,9 +1,10 @@
-from flask import Flask, request 
-import pandas as pd 
+from fastapi import FastAPI
 
-df = pd.read_csv('./data/diagnoses2019.csv')
+app = FastAPI()
 
-app = Flask(__name__)
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
 
 @app.route('/', methods=["GET"])
 def home():

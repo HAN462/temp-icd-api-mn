@@ -1,6 +1,8 @@
 from fastapi import FastAPI
+import pandas as pd
 
 app = FastAPI()
+df = pd.read_csv("services2019.csv")
 
 @app.get("/")
 async def root():
@@ -8,7 +10,7 @@ async def root():
 
 @app.route('/', methods=["GET"])
 def home():
-    return 'this is a API service for MN ICD code details'
+    return 'this is a API service for MN services details'
 
 @app.route('/preview', methods=["GET"])
 def preview():
@@ -16,19 +18,19 @@ def preview():
     result = top10rows.to_json(orient="records")
     return result
 
-@app.route('/icd/<value>', methods=['GET'])
-def icdcode(value):
+    @app.route('/services/<value>', methods=['GET'])
+def services(value):
     print('value: ', value)
-    filtered = df[df['principal_diagnosis_code'] == value]
+    filtered = df[df['svc_code'] == value]
     if len(filtered) <= 0:
         return 'There is nothing here'
     else: 
         return filtered.to_json(orient="records")
 
-@app.route('/icd/<value>/sex/<value2>')
-def icdcode2(value, value2):
-    filtered = df[df['principal_diagnosis_code'] == value]
-    filtered2 = filtered[filtered['sex'] == value2]
+@app.route('/services/<value>/svc_code_desc/<value2>')
+def services2(value, value2):
+    filtered = df[df['svc_code'] == value]
+    filtered2 = filtered[filtered['svc_code_desc'] == value2]
     if len(filtered2) <= 0:
         return 'There is nothing here'
     else: 
@@ -37,3 +39,4 @@ def icdcode2(value, value2):
 
 if __name__ == '__main__':
     app.run(debug=True)
+

@@ -19,6 +19,7 @@ def preview():
     return result
 
     @app.route('/services/<value>', methods=['GET'])
+    
 def services(value):
     print('value: ', value)
     filtered = df[df['svc_code'] == value]
@@ -35,7 +36,7 @@ def services2(value, value2):
         return 'There is nothing here'
     else: 
         return filtered2.to_json(orient="records")    
-        
+
 if __name__ == '__main__':
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)

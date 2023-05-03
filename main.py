@@ -16,25 +16,7 @@ def home():
 def preview():
     top10rows = df.head(1)
     result= top10rows.to_json(orient="records")
-    return result
-
-@app.route('/services/<value>', methods=['GET'])   
-def services(value):
-    print('value: ', value)
-    filtered = df[df['svc_code'] == value]
-    if len(filtered) <= 0:
-        return 'There is nothing here'
-    else: 
-        return filtered.to_json(orient="records")
-
-@app.route('/services/<value>/sex/<value2>')
-def services2(value, value2):
-    filtered = df[df['svc_code'] == value]
-    filtered2 = filtered[filtered['sex'] == value2]
-    if len(filtered2) <= 0:
-        return 'There is nothing here'
-    else: 
-        return filtered2.to_json(orient="records")    
+    return result  
 
 if __name__ == '__main__':
     import uvicorn
